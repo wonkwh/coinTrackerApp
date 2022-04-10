@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
+import AppLoading from 'expo-app-loading';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as Font from 'expo-font';
+import { Text } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { useAssets } from 'expo-asset';
+import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import Tabs from './navs/Tabs';
 
 export default function App() {
+  const [assets] = useAssets([require('./assets/crypto.png')]);
+  const [fonts] = Font.useFonts(FontAwesome5.font);
+  if (!assets || !fonts) {
+    return <AppLoading />;
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tabs />
+      <StatusBar style={'light'} />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
